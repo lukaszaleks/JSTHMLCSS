@@ -26,14 +26,17 @@ class Student {
     set ocena(ocena){
         if(ocena instanceof Ocena){
             this.ocenyTablica.push(ocena)
-        }
-        let sumaOcen = null
+             let sumaOcen = null
         
         this.ocenyTablica.forEach(ocena => {
             sumaOcen += ocena.wartosc
         })
         
         this.sredniaocen = sumaOcen / this.ocenyTablica.length
+        }
+        else{
+        console.log('Wartość musi być instancją obiektu Ocena!')
+        }
     }
 
     get oceny(){
