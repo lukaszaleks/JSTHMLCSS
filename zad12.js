@@ -23,23 +23,32 @@ class Student {
         return console.log(`${this.imie} ${this.nazwisko} średnia ocen: ${this.sredniaocen}`)
     }
 
-    setOcena(przedmiot, wartosc) {
-        this.ocenyTablica.push(new Ocena(przedmiot, wartosc))
-        let sumaOcen = null;
-
-        this.ocenyTablica.forEach(ocena => {
-            sumaOcen += ocena.wartosc;
-        })
-
-        this.sredniaocen = sumaOcen / this.ocenyTablica.length;
-    }
-
-    getOcena(){
-        const ocenyDoWyświetlenia = this.ocenyTablica.map(ocena => {
-            return `Przedmiot: ${ocena.przedmiot} - ocena ${ocena.wartosc}.`
-        }).join(' ')
+    set ocena(ocena){
+        if(ocena instanceof Ocena){
+            this.ocenyTablica.push(ocena)
+        }
+        let sumaOcen = null
         
-        return ocenyDoWyświetlenia
+        this.ocenyTablica.forEach(ocena => {
+            sumaOcen += ocena.wartosc
+        })
+        
+        this.sredniaocen = sumaOcen / this.ocenyTablica.length
     }
 
+    get oceny(){
+        const wszystkieOceny = this.ocenyTablica.map(ocena => {
+            return `Przedmiot: ${ocena.przedmiot} - ocena ${ocena.wartosc}.`
+        })
+        return console.log(wszystkieOceny.join(' '));
+    }
 }
+
+
+let ocena = new Ocena('TIN', 5)
+let ocena2 = new Ocena('WF', 5)
+
+let student = new Student('Jan', 'Kowalski')
+
+student.ocena = ocena;
+student.oceny
